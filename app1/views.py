@@ -8,7 +8,6 @@ import os
 @csrf_exempt
 def file_op(request):
     
-
     def mod_file(file_name, op):
 
         with open(f'./app1/{file_name}', op) as f:
@@ -20,22 +19,28 @@ def file_op(request):
                 content = f.read()
                 return content
 
-    file_name = request.GET['filename']
+    
 
     if request.method == 'POST': 
         body = json.loads(request.body)
-        file_name = body[0]['filename']
-        content = body[1]['content']
+
+        
+        file_name = body['filename']
+        print(body['content'])
+        content = body['content']
         mod_file(file_name, 'w')
         return HttpResponse('created file')
     elif request.method == 'GET':    
+        file_name = request.GET['filename']
         content = mod_file(file_name, 'r')
         return HttpResponse(content)
     elif request.method == 'PUT':
+        file_name = request.GET['filename']
         content = request.body.decode('utf-8')
         mod_file(file_name, 'a')
         return HttpResponse('Appended to file')
     elif request.method == 'DELETE':
+        file_name = request.GET['filename']
         os.remove(f'./app1/{file_name}')
         return HttpResponse('Deleted file')
 
