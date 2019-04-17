@@ -20,6 +20,6 @@ from app2.views import greeting
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('app1', file_op),
+    path('app1/', file_op),
     path('app2/<int:num>', greeting)
 ]

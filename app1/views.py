@@ -22,9 +22,8 @@ def file_op(request):
     
 
     if request.method == 'POST': 
+        # import pdb;pdb.set_trace()
         body = json.loads(request.body)
-
-        
         file_name = body['filename']
         print(body['content'])
         content = body['content']
